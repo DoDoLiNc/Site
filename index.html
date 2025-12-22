@@ -3,109 +3,127 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Запрошення на зустріч</title>
+  <title>Запрошення</title>
   <style>
     body {
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(180deg, #f6f7f9, #ededf0);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #4a2c2a;
+      color: #2b2b2b;
+      overflow: hidden;
     }
     .card {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 36px 32px;
-      max-width: 440px;
+      background: #ffffff;
+      padding: 42px 36px;
+      max-width: 420px;
       width: 90%;
-      border-radius: 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      border-radius: 22px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.08);
       text-align: center;
+      animation: fadeUp 0.9s ease-out both;
       position: relative;
       overflow: hidden;
+      z-index: 1;
     }
     .card::before {
       content: "";
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, rgba(255,182,193,0.25), transparent 60%);
-      transform: rotate(25deg);
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(0,0,0,0.04), transparent 60%);
+      pointer-events: none;
+      z-index: -1;
     }
-    h1 {
-      position: relative;
-      margin-top: 0;
-      font-size: 30px;
-      font-weight: 600;
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .subtitle {
-      position: relative;
-      font-size: 18px;
-      margin-bottom: 20px;
-      color: #7a3e3a;
-    }
-    .info {
-      position: relative;
-      font-size: 16px;
-      margin: 10px 0;
-    }
-    .message {
-      position: relative;
-      margin: 24px 0;
-      line-height: 1.6;
-      font-size: 17px;
-    }
-    .btn {
-      position: relative;
-      display: inline-block;
-      margin-top: 24px;
-      padding: 14px 28px;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 999px;
-      font-size: 16px;
-      box-shadow: 0 8px 20px rgba(255,117,140,0.4);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 26px rgba(255,117,140,0.5);
-    }
-    .footer {
-      position: relative;
-      margin-top: 26px;
+    h1 { margin: 0 0 16px; font-size: 27px; font-weight: 500; letter-spacing: 0.2px; }
+    .name { font-weight: 600; }
+    .divider { width: 46px; height: 2px; background: #e0e0e0; margin: 18px auto 22px; border-radius: 2px; }
+    .info { font-size: 15px; margin: 6px 0; color: #555; }
+    .message { margin: 26px 0 10px; font-size: 16px; line-height: 1.65; color: #333; }
+    .btn { display: inline-block; margin-top: 26px; padding: 13px 30px; background: linear-gradient(135deg, #2c2c2c, #000); color: #fff; text-decoration: none; border-radius: 999px; font-size: 15px; letter-spacing: 0.3px; box-shadow: 0 10px 24px rgba(0,0,0,0.25); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,0.3); }
+    .footer { margin-top: 24px; font-size: 14px; color: #777; }
+
+    /* Snow animation - background layer */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: rgba(0,0,0,0.15);
       font-size: 14px;
-      color: #9a5a57;
+      user-select: none;
+      pointer-events: none;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+    /* Snow animation - front layer (blue snowflakes) */
+    .snowflake-blue {
+      position: fixed;
+      top: -10px;
+      color: rgba(0, 102, 255, 0.25);
+      font-size: 12px;
+      user-select: none;
+      pointer-events: none;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      z-index: 2;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-10px); }
+      100% { transform: translateY(110vh); }
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Запрошення 💌</h1>
-    <div class="subtitle">на теплу та особливу зустріч</div>
-
-    <div class="info">📅 Пʼятниця, 27 грудня</div>
-    <div class="info">🕯 Початок о 18:30</div>
-    <div class="info">📍 Затишна локація, сюрприз 😉</div>
-
+    <center>
+	<h1>Привіт, <span class="name">Віка</span></h1>
     <div class="message">
-      Я хочу запросити тебе на маленьку пригоду —
-      прогулянку, розмови, посмішки та моменти,
-      які хочеться запамʼятати.
+	Цей подаруночок тобі 🌷<br /> Я би хотів аби ми трішки поспілкуватися,<br /> випили чогось тепленького та перекусили.
       <br /><br />
-      Буде тепло, щиро і по-справжньому ✨
+      Якщо ти за — буду радий твоїй відповіді.
     </div>
-
-    <a class="btn" href="#">Скажи «так» 💕</a>
-
-    <div class="footer">
-      Я дуже сподіваюсь, що ти прийдеш
-    </div>
+	<div class="divider"></div>
+    <div class="info">📅 Вівторок, 30 грудня</div>
+    <div class="info">🕰 Після роботи</div>
+    <div class="info">📍 <a href="https://www.google.com/maps/place/INSHYY+Prosecco+%D0%91%D0%B0%D1%80/@49.5529601,25.5953839,20z/data=!4m6!3m5!1s0x473037c546cb5da5:0xd2e4342169de8803!8m2!3d49.5529601!4d25.5956494!16s%2Fg%2F11kf47zg4n?authuser=0&entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D">INSHYY Prosecco Бар</a> <br /> або невеличка прогулянка</div>
+    <a class="btn" href="https://t.me/DoDoLiNc">Відповісти в Telegram</a>
+    <div class="footer">Без жодних зобовʼязань</div>
+</center>
   </div>
+  <script>
+    const snowCount = 160;
+    for (let i = 0; i < snowCount; i++) {
+      const snow = document.createElement('div');
+      snow.className = 'snowflake';
+      snow.textContent = '❄';
+      snow.style.left = Math.random() * 100 + 'vw';
+      snow.style.animationDuration = 8 + Math.random() * 10 + 's';
+      snow.style.opacity = Math.random() * 0.6 + 0.2;
+      snow.style.fontSize = 10 + Math.random() * 14 + 'px';
+      snow.style.animationDelay = Math.random() * 10 + 's';
+      document.body.appendChild(snow);
+    }
+
+    const blueSnowCount = 80;
+    for (let i = 0; i < blueSnowCount; i++) {
+      const snow = document.createElement('div');
+      snow.className = 'snowflake-blue';
+      snow.textContent = '❄️';
+      snow.style.left = Math.random() * 100 + 'vw';
+      snow.style.animationDuration = 6 + Math.random() * 8 + 's';
+      snow.style.opacity = Math.random() * 0.6 + 0.15;
+      snow.style.fontSize = 8 + Math.random() * 12 + 'px';
+      snow.style.animationDelay = Math.random() * 10 + 's';
+      document.body.appendChild(snow);
+    }
+  </script>
 </body>
 </html>
