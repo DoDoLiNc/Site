@@ -94,19 +94,6 @@
     }
     .card.show { display: block; }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(0,0,0,0.04), transparent 60%);
-      pointer-events: none;
-      z-index: -1;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     h1 { margin: 0 0 16px; font-size: 27px; font-weight: 500; }
     .name { font-weight: 600; }
     .divider { width: 46px; height: 2px; background: #e0e0e0; margin: 18px auto 22px; border-radius: 2px; }
@@ -122,9 +109,7 @@
       border-radius: 999px;
       font-size: 15px;
       box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,0.3); }
     .footer { margin-top: 24px; font-size: 14px; color: #777; }
 
     /* ===== Snow ===== */
@@ -155,7 +140,7 @@
       <p>Введи пароль, щоб побачити вміст</p>
       <input type="password" id="password" placeholder="Пароль" />
       <button onclick="unlock()">Відкрити</button>
-      <div class="hint">Підказка: пароль у середині 💙</div>
+      <div class="hint" id="hint">Підказка: пароль у середині 💙</div>
     </div>
   </div>
 
@@ -172,24 +157,55 @@
     <div class="divider"></div>
     <div class="info">📅 Понеділок, 29 грудня</div>
     <div class="info">🕰 Після роботи</div>
-    <div class="info">📍<a href="https://www.google.com/maps/place/INSHYY+Prosecco+%D0%91%D0%B0%D1%80/@49.5529601,25.5953839,20z/data=!4m6!3m5!1s0x473037c546cb5da5:0xd2e4342169de8803!8m2!3d49.5529601!4d25.5956494!16s%2Fg%2F11kf47zg4n?authuser=0&entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D">INSHYY Prosecco Бар</a> або прогулянка під снігом</div>
+    <div class="info">📍 INSHYY Prosecco Бар або прогулянка під снігом</div>
     <a class="btn" href="https://t.me/DoDoLiNc">Відповісти в Telegram</a>
     <div class="footer">Без жодних зобовʼязань</div>
   </div>
 
   <script>
     const PASSWORD = "7vika7";
+    const EXPIRE_DAYS = 2;
 
     function unlock() {
       const input = document.getElementById('password').value;
-      if (input.toLowerCase() === PASSWORD) {
-        document.getElementById('lock').style.display = 'none';
-        document.getElementById('content').classList.add('show');
-        startSnow();
+      if (input === PASSWORD) {
+        const now = Date.now();
+        localStorage.setItem('inviteUnlocked', 'true');
+        localStorage.setItem('inviteUnlockedAt', now.toString());
+        localStorage.setItem('inviteHintHidden', 'true');
+        openContent();
       } else {
         alert('Неправильний пароль');
       }
     }
+
+    function openContent() {
+      document.getElementById('lock').style.display = 'none';
+      document.getElementById('content').classList.add('show');
+      startSnow();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const unlocked = localStorage.getItem('inviteUnlocked');
+      const unlockedAt = localStorage.getItem('inviteUnlockedAt');
+      const hintHidden = localStorage.getItem('inviteHintHidden');
+
+      if (hintHidden === 'true') {
+        const hint = document.getElementById('hint');
+        if (hint) hint.style.display = 'none';
+      }
+
+      if (unlocked === 'true' && unlockedAt) {
+        const diff = Date.now() - parseInt(unlockedAt, 10);
+        const maxTime = EXPIRE_DAYS * 24 * 60 * 60 * 1000;
+        if (diff < maxTime) {
+          openContent();
+        } else {
+          localStorage.removeItem('inviteUnlocked');
+          localStorage.removeItem('inviteUnlockedAt');
+        }
+      }
+    });
 
     function startSnow() {
       for (let i = 0; i < 120; i++) createSnow('snowflake', 8, 18, 0.5);
