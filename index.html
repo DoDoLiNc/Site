@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="uk">
+<!DOCTYPE html><html lang="uk">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,141 +14,136 @@
       justify-content: center;
       color: #2b2b2b;
       overflow: hidden;
-    }
+    }/* ===== Password Overlay ===== */
+.lock-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, #f6f7f9, #ededf0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  animation: fadeIn 0.6s ease both;
+}
+.lock-card {
+  background: #fff;
+  padding: 36px 32px;
+  border-radius: 22px;
+  width: 90%;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.1);
+}
+.lock-card h2 {
+  margin: 0 0 14px;
+  font-weight: 500;
+}
+.lock-card p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+.lock-card input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  outline: none;
+}
+.lock-card button {
+  margin-top: 18px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2c2c2c, #000);
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+}
+.hint {
+  margin-top: 14px;
+  font-size: 13px;
+  color: #999;
+}
 
-    /* ===== Password Overlay ===== */
-    .lock-screen {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(180deg, #f6f7f9, #ededf0);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-      animation: fadeIn 0.6s ease both;
-    }
-    .lock-card {
-      background: #fff;
-      padding: 36px 32px;
-      border-radius: 22px;
-      width: 90%;
-      max-width: 360px;
-      text-align: center;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.1);
-    }
-    .lock-card h2 {
-      margin: 0 0 14px;
-      font-weight: 500;
-    }
-    .lock-card p {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 20px;
-    }
-    .lock-card input {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-      font-size: 15px;
-      outline: none;
-    }
-    .lock-card button {
-      margin-top: 18px;
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #2c2c2c, #000);
-      color: #fff;
-      font-size: 15px;
-      cursor: pointer;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-    }
-    .hint {
-      margin-top: 14px;
-      font-size: 13px;
-      color: #999;
-    }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+/* ===== Main Card ===== */
+.card {
+  background: #ffffff;
+  padding: 42px 36px;
+  max-width: 420px;
+  width: 90%;
+  border-radius: 22px;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.08);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  display: none;
+  animation: fadeUp 0.9s ease-out both;
+}
+.card.show { display: block; }
 
-    /* ===== Main Card ===== */
-    .card {
-      background: #ffffff;
-      padding: 42px 36px;
-      max-width: 420px;
-      width: 90%;
-      border-radius: 22px;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.08);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-      display: none;
-      animation: fadeUp 0.9s ease-out both;
-    }
-    .card.show { display: block; }
+h1 { margin: 0 0 16px; font-size: 27px; font-weight: 500; }
+.name { font-weight: 600; }
+.divider { width: 46px; height: 2px; background: #e0e0e0; margin: 18px auto 22px; border-radius: 2px; }
+.info { font-size: 15px; margin: 6px 0; color: #555; }
+.message { margin: 26px 0 10px; font-size: 16px; line-height: 1.65; color: #333; }
+.btn {
+  display: inline-block;
+  margin-top: 26px;
+  padding: 13px 30px;
+  background: linear-gradient(135deg, #2c2c2c, #000);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 999px;
+  font-size: 15px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+}
+.footer { margin-top: 24px; font-size: 14px; color: #777; }
 
-    h1 { margin: 0 0 16px; font-size: 27px; font-weight: 500; }
-    .name { font-weight: 600; }
-    .divider { width: 46px; height: 2px; background: #e0e0e0; margin: 18px auto 22px; border-radius: 2px; }
-    .info { font-size: 15px; margin: 6px 0; color: #555; }
-    .message { margin: 26px 0 10px; font-size: 16px; line-height: 1.65; color: #333; }
-    .btn {
-      display: inline-block;
-      margin-top: 26px;
-      padding: 13px 30px;
-      background: linear-gradient(135deg, #2c2c2c, #000);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 999px;
-      font-size: 15px;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-    }
-    .footer { margin-top: 24px; font-size: 14px; color: #777; }
+/* ===== Snow ===== */
+.snowflake, .snowflake-blue {
+  position: fixed;
+  top: -10px;
+  user-select: none;
+  pointer-events: none;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.snowflake { color: rgba(0,0,0,0.15); }
+.snowflake-blue { color: rgba(0,102,255,0.35); z-index: 2; }
 
-    /* ===== Snow ===== */
-    .snowflake, .snowflake-blue {
-      position: fixed;
-      top: -10px;
-      user-select: none;
-      pointer-events: none;
-      animation-name: fall;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-    }
-    .snowflake { color: rgba(0,0,0,0.15); }
-    .snowflake-blue { color: rgba(0,102,255,0.35); z-index: 2; }
+@keyframes fall {
+  from { transform: translateY(-10px); }
+  to { transform: translateY(110vh); }
+}
 
-    @keyframes fall {
-      from { transform: translateY(-10px); }
-      to { transform: translateY(110vh); }
-    }
   </style>
 </head>
-<body>
-
-  <!-- Password Screen -->
-  <div class="lock-screen" id="lock">
+<body>  <!-- Password Screen -->  <div class="lock-screen" id="lock">
     <div class="lock-card">
       <h2>🔒 Приватне запрошення</h2>
       <p>Введи пароль, щоб побачити вміст</p>
       <input type="password" id="password" placeholder="Пароль" />
       <button onclick="unlock()">Відкрити</button>
-      <div class="hint" id="hint">Підказка: пароль у середині 💙</div>
+      <div class="hint" id="hint">Підказка: пароль під QR-котом 💙</div>
     </div>
-  </div>
-
-  <!-- Main Content -->
-  <div class="card" id="content">
+  </div>  <!-- Main Content -->  <div class="card" id="content">
     <h1>Привіт, <span class="name">Віка</span></h1>
     <div class="message">
-      Цей подаруночок тобі 🌷<br />
-      Я хочу аби ми трішки поспілкувалися,<br />
+      Для початку, прийми цей подаруночок 🌷<br />
+      надіюся він тобі сподобається. <br />
+      А також, хочу тебе запросити кудись <br />
+      посидіти аби ми трішки поспілкувалися,<br />
       випили чогось тепленького та перекусили.
       <br /><br />
       Якщо ти за — буду радий твоїй відповіді.
@@ -157,14 +151,12 @@
     <div class="divider"></div>
     <div class="info">📅 Понеділок, 29 грудня</div>
     <div class="info">🕰 Після роботи</div>
-    <div class="info">📍 INSHYY Prosecco Бар або прогулянка під снігом</div>
+    <div class="info">📍 INSHYY Prosecco Бар, твоя улюблена кав'ярня або прогулянка під снігом</div>
     <a class="btn" href="https://t.me/DoDoLiNc">Відповісти в Telegram</a>
-    <div class="footer">Без жодних зобовʼязань</div>
-  </div>
-
-  <script>
+    <div class="footer">З нетерпінням очікую</div>
+  </div>  <script>
     const PASSWORD = "7vika7";
-    const EXPIRE_DAYS = 0;
+    const EXPIRE_DAYS = 2;
 
     function unlock() {
       const input = document.getElementById('password').value;
@@ -222,7 +214,5 @@
       s.style.opacity = Math.random() * opacity + 0.3;
       document.body.appendChild(s);
     }
-  </script>
-</body>
+  </script></body>
 </html>
-
