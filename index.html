@@ -16,6 +16,68 @@
       color: #2b2b2b;
       overflow: hidden;
     }
+
+    /* ===== Password Overlay ===== */
+    .lock-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, #f6f7f9, #ededf0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      animation: fadeIn 0.6s ease both;
+    }
+    .lock-card {
+      background: #fff;
+      padding: 36px 32px;
+      border-radius: 22px;
+      width: 90%;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.1);
+    }
+    .lock-card h2 {
+      margin: 0 0 14px;
+      font-weight: 500;
+    }
+    .lock-card p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .lock-card input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      font-size: 15px;
+      outline: none;
+    }
+    .lock-card button {
+      margin-top: 18px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #2c2c2c, #000);
+      color: #fff;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+    }
+    .hint {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #999;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ===== Main Card ===== */
     .card {
       background: #ffffff;
       padding: 42px 36px;
@@ -24,11 +86,14 @@
       border-radius: 22px;
       box-shadow: 0 20px 45px rgba(0,0,0,0.08);
       text-align: center;
-      animation: fadeUp 0.9s ease-out both;
       position: relative;
       overflow: hidden;
       z-index: 1;
+      display: none;
+      animation: fadeUp 0.9s ease-out both;
     }
+    .card.show { display: block; }
+
     .card::before {
       content: "";
       position: absolute;
@@ -41,92 +106,106 @@
       from { opacity: 0; transform: translateY(14px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    h1 { margin: 0 0 16px; font-size: 27px; font-weight: 500; letter-spacing: 0.2px; }
+
+    h1 { margin: 0 0 16px; font-size: 27px; font-weight: 500; }
     .name { font-weight: 600; }
     .divider { width: 46px; height: 2px; background: #e0e0e0; margin: 18px auto 22px; border-radius: 2px; }
     .info { font-size: 15px; margin: 6px 0; color: #555; }
     .message { margin: 26px 0 10px; font-size: 16px; line-height: 1.65; color: #333; }
-    .btn { display: inline-block; margin-top: 26px; padding: 13px 30px; background: linear-gradient(135deg, #2c2c2c, #000); color: #fff; text-decoration: none; border-radius: 999px; font-size: 15px; letter-spacing: 0.3px; box-shadow: 0 10px 24px rgba(0,0,0,0.25); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .btn {
+      display: inline-block;
+      margin-top: 26px;
+      padding: 13px 30px;
+      background: linear-gradient(135deg, #2c2c2c, #000);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      font-size: 15px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
     .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,0.3); }
     .footer { margin-top: 24px; font-size: 14px; color: #777; }
 
-    /* Snow animation - background layer */
-    .snowflake {
+    /* ===== Snow ===== */
+    .snowflake, .snowflake-blue {
       position: fixed;
       top: -10px;
-      color: rgba(0,0,0,0.15);
-      font-size: 14px;
       user-select: none;
       pointer-events: none;
       animation-name: fall;
       animation-timing-function: linear;
       animation-iteration-count: infinite;
     }
-    /* Snow animation - front layer (blue snowflakes) */
-    .snowflake-blue {
-      position: fixed;
-      top: -10px;
-      color: rgba(0, 102, 255, 0.25);
-      font-size: 12px;
-      user-select: none;
-      pointer-events: none;
-      animation-name: fall;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-      z-index: 2;
-    }
+    .snowflake { color: rgba(0,0,0,0.15); }
+    .snowflake-blue { color: rgba(0,102,255,0.35); z-index: 2; }
+
     @keyframes fall {
-      0% { transform: translateY(-10px); }
-      100% { transform: translateY(110vh); }
+      from { transform: translateY(-10px); }
+      to { transform: translateY(110vh); }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <center>
-	<h1>Привіт, <span class="name">Віка</span></h1>
+
+  <!-- Password Screen -->
+  <div class="lock-screen" id="lock">
+    <div class="lock-card">
+      <h2>🔒 Приватне запрошення</h2>
+      <p>Введи пароль, щоб побачити вміст</p>
+      <input type="password" id="password" placeholder="Пароль" />
+      <button onclick="unlock()">Відкрити</button>
+      <div class="hint">Підказка: пароль у середині 💙</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="card" id="content">
+    <h1>Привіт, <span class="name">Віка</span></h1>
     <div class="message">
-	Цей подаруночок тобі 🌷<br /> Я би хотів аби ми трішки поспілкуватися,<br /> випили чогось тепленького та перекусили.
+      Цей подаруночок тобі 🌷<br />
+      Я хочу аби ми трішки поспілкувалися,<br />
+      випили чогось тепленького та перекусили.
       <br /><br />
       Якщо ти за — буду радий твоїй відповіді.
     </div>
- <a class="btn" href="https://t.me/DoDoLiNc">Відповісти в Telegram</a>
- <div class="footer">Без жодних зобовʼязань</div>
-	<div class="divider"></div>
-    <div class="info">📅 Вівторок, 30 грудня</div>
+    <div class="divider"></div>
+    <div class="info">📅 Понеділок, 29 грудня</div>
     <div class="info">🕰 Після роботи</div>
-    <div class="info">📍<a href="https://www.google.com/maps/place/INSHYY+Prosecco+%D0%91%D0%B0%D1%80/@49.5529601,25.5953839,20z/data=!4m6!3m5!1s0x473037c546cb5da5:0xd2e4342169de8803!8m2!3d49.5529601!4d25.5956494!16s%2Fg%2F11kf47zg4n?authuser=0&entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D">INSHYY Prosecco Бар</a> <br /> або невеличка прогулянка</div>
-   
-   
-</center>
+    <div class="info">📍<a href="https://www.google.com/maps/place/INSHYY+Prosecco+%D0%91%D0%B0%D1%80/@49.5529601,25.5953839,20z/data=!4m6!3m5!1s0x473037c546cb5da5:0xd2e4342169de8803!8m2!3d49.5529601!4d25.5956494!16s%2Fg%2F11kf47zg4n?authuser=0&entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D">INSHYY Prosecco Бар</a> або прогулянка під снігом</div>
+    <a class="btn" href="https://t.me/DoDoLiNc">Відповісти в Telegram</a>
+    <div class="footer">Без жодних зобовʼязань</div>
   </div>
+
   <script>
-    const snowCount = 160;
-    for (let i = 0; i < snowCount; i++) {
-      const snow = document.createElement('div');
-      snow.className = 'snowflake';
-      snow.textContent = '❄';
-      snow.style.left = Math.random() * 100 + 'vw';
-      snow.style.animationDuration = 8 + Math.random() * 10 + 's';
-      snow.style.opacity = Math.random() * 0.6 + 0.2;
-      snow.style.fontSize = 10 + Math.random() * 14 + 'px';
-      snow.style.animationDelay = Math.random() * 10 + 's';
-      document.body.appendChild(snow);
+    const PASSWORD = "7vika7";
+
+    function unlock() {
+      const input = document.getElementById('password').value;
+      if (input.toLowerCase() === PASSWORD) {
+        document.getElementById('lock').style.display = 'none';
+        document.getElementById('content').classList.add('show');
+        startSnow();
+      } else {
+        alert('Неправильний пароль');
+      }
     }
 
-    const blueSnowCount = 80;
-    for (let i = 0; i < blueSnowCount; i++) {
-      const snow = document.createElement('div');
-      snow.className = 'snowflake-blue';
-      snow.textContent = '❄️';
-      snow.style.left = Math.random() * 100 + 'vw';
-      snow.style.animationDuration = 6 + Math.random() * 8 + 's';
-      snow.style.opacity = Math.random() * 0.6 + 0.15;
-      snow.style.fontSize = 8 + Math.random() * 12 + 'px';
-      snow.style.animationDelay = Math.random() * 10 + 's';
-      document.body.appendChild(snow);
+    function startSnow() {
+      for (let i = 0; i < 120; i++) createSnow('snowflake', 8, 18, 0.5);
+      for (let i = 0; i < 70; i++) createSnow('snowflake-blue', 6, 14, 0.7);
+    }
+
+    function createSnow(cls, minDur, maxDur, opacity) {
+      const s = document.createElement('div');
+      s.className = cls;
+      s.textContent = '❄';
+      s.style.left = Math.random() * 100 + 'vw';
+      s.style.animationDuration = minDur + Math.random() * maxDur + 's';
+      s.style.fontSize = 8 + Math.random() * 14 + 'px';
+      s.style.opacity = Math.random() * opacity + 0.3;
+      document.body.appendChild(s);
     }
   </script>
 </body>
 </html>
-
