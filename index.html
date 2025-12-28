@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Новорічне запрошення ✨</title>
+  <title>Запрошення</title>
   <style>
     body {
       margin: 0;
@@ -33,9 +33,6 @@
   max-width: 360px;
   text-align: center;
   box-shadow: 0 20px 45px rgba(0,0,0,0.1);
-  position: relative;
-  z-index: 20;
-  pointer-events: auto;
 }
 .lock-card h2 {
   margin: 0 0 14px;
@@ -79,7 +76,7 @@
 
 /* ===== Main Card ===== */
 .card {
-  background: linear-gradient(180deg, #ffffff, #faf7f2);
+  background: #ffffff;
   padding: 42px 36px;
   max-width: 420px;
   width: 90%;
@@ -110,30 +107,7 @@ h1 { margin: 0 0 16px; font-size: 27px; font-weight: 500; }
   font-size: 15px;
   box-shadow: 0 10px 24px rgba(0,0,0,0.25);
 }
-.footer {
-  margin-top: 24px;
-  font-size: 14px;
-  color: #777;
-}
-
-/* ===== New Year Accent ===== */
-.glow {
-  position: absolute;
-  inset: -40px;
-  background: radial-gradient(circle at top, rgba(255,215,120,0.25), transparent 60%);
-  pointer-events: none;
-}
-
-.countdown {
-  margin: 22px 0 10px;
-  font-size: 16px;
-  color: #444;
-  font-weight: 500;
-}
-.countdown span {
-  font-weight: 600;
-}
-
+.footer { margin-top: 24px; font-size: 14px; color: #777; }
 
 /* ===== Snow ===== */
 .snowflake, .snowflake-blue {
@@ -153,64 +127,52 @@ h1 { margin: 0 0 16px; font-size: 27px; font-weight: 500; }
   to { transform: translateY(110vh); }
 }
 
-  
-/* ===== Soft Sparkles ===== */
-.sparkle {
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  background: radial-gradient(circle, rgba(255,215,120,0.9), rgba(255,215,120,0));
-  border-radius: 50%;
-  pointer-events: none;
-  animation: sparkle 2.5s ease-out forwards;
-}
-@keyframes sparkle {
-  from { transform: scale(1); opacity: 1; }
-  to { transform: scale(0); opacity: 0; }
-}
-</style>
+  </style>
 </head>
 <body>  <!-- Password Screen -->  <div class="lock-screen" id="lock">
     <div class="lock-card">
       <h2>🔒 Приватне запрошення</h2>
       <p>Введи пароль, щоб побачити вміст</p>
       <input type="password" id="password" placeholder="Пароль" />
-      <button type="button" onclick="unlock()">Відкрити</button>
-      <div class="hint" id="hint">Підказка: Число яке я люблю вводити на калькуляторі =)</div>
+      <button onclick="unlock()">Відкрити</button>
+      <div class="hint" id="hint">Підказка: пароль під QR-котом 💙</div>
     </div>
-  </div>  <!-- Main Content -->  <audio id="bgm" loop preload="auto">
-  <source src="https://raw.githubusercontent.com/DoDoLiNc/Site/main/JB.mp3" type="audio/mpeg">
-</audio>
-
-<div class="card" id="content">
-    <div class="glow"></div>
-    <h1>З наступаючим <br /> Новим роком, <span class="name">Галя</span> ✨</h1>
+  </div>  <!-- Main Content -->  <div class="card" id="content">
+    <h1>Привіт, <span class="name">Віка</span></h1>
     <div class="message">
-      Хочу розпочати цей Новий рік з особливої атмосфери 🎄 тепла, легких розмов і гарного настрою.
+      Для початку, прийми цей подаруночок 🌷 надіюся він тобі сподобається. <br />
+      А також, хочу тебе запросити кудись <br />
+      посидіти аби ми трішки поспілкувалися,<br />
+      випили чогось тепленького та перекусили.
+      Для початку, прийми цей подаруночок 🌷 
+      надіюся він тобі сподобається. А також, 
+      хочу тебе запросити кудись посидіти аби
+      ми трішки поспілкувалися, випили чогось 
+      тепленького та перекусили.
       <br /><br />
-      Запрошую тебе зустріти Новий рік разом —
-      без поспіху, без зобовʼязань,
-      просто насолодитися моментом.
-      <br /><br />
-      Якщо ти згодна — я буду дуже радий твоїй компанії ✨
+      Якщо ти за — буду радий твоїй відповіді.
     </div>
+
+    <div class="footer">З нетерпінням очікую</div>
+    <a class="btn" href="https://t.me/DoDoLiNc">Відповісти в Telegram</a>
     
-    <div class="countdown" id="countdown">До Нового року залишилось: <span>…</span></div>
-    
-    
-    <div class="footer">Нехай цей вечір буде спокійним та сповнений свята ✨</div>
+    <div class="footer">З нетерпінням очікую</div>
     <div class="divider"></div>
-    <div class="info">📍 Затишне місце (можливо), де буде тепло й святково</div>
-    
-    <div class="info">🕰 Вечір, ближче до Нового року</div>
-<div class="info">📅 31 грудня</div>
-    
+    <div class="info">📍 INSHYY Prosecco Бар, твоя улюблена кав'ярня або прогулянка під снігом</div>
+    <div class="info">📅 Понеділок, 29 грудня</div>
+    <div class="info">🕰 Після роботи</div>
+
   </div>  <script>
-    const PASSWORD = "5051";
+    const PASSWORD = "7vika7";
+    const EXPIRE_DAYS = 2;
 
     function unlock() {
       const input = document.getElementById('password').value;
       if (input === PASSWORD) {
+        const now = Date.now();
+        localStorage.setItem('inviteUnlocked', 'true');
+        localStorage.setItem('inviteUnlockedAt', now.toString());
+        localStorage.setItem('inviteHintHidden', 'true');
         openContent();
       } else {
         alert('Неправильний пароль');
@@ -221,64 +183,33 @@ h1 { margin: 0 0 16px; font-size: 27px; font-weight: 500; }
       document.getElementById('lock').style.display = 'none';
       document.getElementById('content').classList.add('show');
       startSnow();
-      startCountdown();
-      startMusic();
-      startSparkles();
     }
-    
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const unlocked = localStorage.getItem('inviteUnlocked');
+      const unlockedAt = localStorage.getItem('inviteUnlockedAt');
+      const hintHidden = localStorage.getItem('inviteHintHidden');
+
+      if (hintHidden === 'true') {
+        const hint = document.getElementById('hint');
+        if (hint) hint.style.display = 'none';
+      }
+
+      if (unlocked === 'true' && unlockedAt) {
+        const diff = Date.now() - parseInt(unlockedAt, 10);
+        const maxTime = EXPIRE_DAYS * 24 * 60 * 60 * 1000;
+        if (diff < maxTime) {
+          openContent();
+        } else {
+          localStorage.removeItem('inviteUnlocked');
+          localStorage.removeItem('inviteUnlockedAt');
+        }
+      }
+    });
 
     function startSnow() {
       for (let i = 0; i < 120; i++) createSnow('snowflake', 8, 18, 0.5);
       for (let i = 0; i < 70; i++) createSnow('snowflake-blue', 6, 14, 0.7);
-    }
-
-    function startCountdown() {
-      const el = document.getElementById('countdown');
-      if (!el) return;
-
-      const target = new Date(new Date().getFullYear(), 11, 31, 23, 59, 59);
-
-      function update() {
-        const now = new Date();
-        let diff = target - now;
-        if (diff < 0) diff = 0;
-
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const m = Math.floor((diff / (1000 * 60)) % 60);
-        const s = Math.floor((diff / 1000) % 60);
-
-        el.querySelector('span').textContent = `${d}д ${h}г ${m}хв ${s}с`;
-      }
-
-      update();
-      setInterval(update, 1000);
-    }
-
-    function startMusic() {
-      const audio = document.getElementById('bgm');
-      if (!audio) return;
-      audio.volume = 0.5;
-      audio.muted = false;
-      audio.load();
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(err => {
-          console.log('Audio play blocked:', err);
-        });
-      }
-    });
-    }
-
-    function startSparkles() {
-      setInterval(() => {
-        const sp = document.createElement('div');
-        sp.className = 'sparkle';
-        sp.style.left = Math.random() * 100 + 'vw';
-        sp.style.top = Math.random() * 100 + 'vh';
-        document.body.appendChild(sp);
-        setTimeout(() => sp.remove(), 2500);
-      }, 600);
     }
 
     function createSnow(cls, minDur, maxDur, opacity) {
@@ -293,6 +224,3 @@ h1 { margin: 0 0 16px; font-size: 27px; font-weight: 500; }
     }
   </script></body>
 </html>
-
-
-
